@@ -9,16 +9,24 @@ public class KnuthMorrisPuth {
     {
         int len = needle.length();
         int[] table = new int[len];
+        int j = 0;
+        int i = 1;
 
-        for(int i = 1; i < len-1; i++) {
-            int j = table[i - 1];
-
-            while (j > 0 && needle.charAt(j) != needle.charAt(i))
-                j = table[j - 1];
-
+        while(i < len)
+        {
             if (needle.charAt(j) == needle.charAt(i)) {
-                table[i] = table[i - 1] + 1;
                 j++;
+                table[i] = j;
+                i++;
+            }
+            else {
+                if(j != 0) {
+                    j = table[j - 1];
+                }
+                else {
+                    table[i] = j;
+                    i++;
+                }
             }
         }
         return table;
